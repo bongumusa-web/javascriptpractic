@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+        }
+        main{
+            display: block;
+            text-align: center;
+        }
+
+        #dice{
+            
+            float:center ;
+            align-items: center;
+            margin: 20px;
+            padding: 20px;
+            border: 2px solid black;
+            border-radius: 10px;
+            width: 300px;
+            height: 200px;
+
+            
+        }
+        
+    </style>
+</head>
+<body>
+
+    <main>
+        <h2>Dice game</h2>
+
+        <div id="dice">
+            <h1 id="diceResult"></h1>
+            <img src="dice/rolldice.png" alt="Dice" id="diceImage" width="100" height="100">
+        </div>
+         
+        <button id="roll">Roll Dice</button>
+        
+    </main>
+
+
+
+
+    <!--====================================javascript=================================-->
+    
+    <script>
+       // first testing random number
+       let randomNumber1 = Math.floor(Math.random()*6)+1;
+
+        document.getElementById("roll").onclick = function(){
+           
+         
+            document.getElementById("diceResult").innerHTML = "You rolled a " + randomNumber1;
+        
+
+            if (randomNumber1 === 1) {
+                document.getElementById("diceImage").src = "dice/number1.png";
+
+            } else if (randomNumber1 === 2) {
+                document.getElementById("diceImage").src = "dice/number2.png";      
+
+            } else if (randomNumber1 === 3) {
+                document.getElementById("diceImage").src = "dice/number3.png";      
+
+            } else if (randomNumber1 === 4) {
+                document.getElementById("diceImage").src = "dice/number4.png";      
+
+            } else if (randomNumber1 === 5) {
+                document.getElementById("diceImage").src = "dice/number5.png";      
+
+            } else {
+                document.getElementById("diceImage").src = "dice/number6.png";
+            }
+        }
+
+
+    </script>
+
+</body>
+</html>
