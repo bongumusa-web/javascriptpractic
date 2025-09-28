@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aboutUs</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0px;
+        }
+
+        .body{
+            margin: 0px;
+            padding: 0px;
+            background-color:rgba(87, 81, 81, 0.944);
+        }
+
+        .menu{
+            margin: 0px;
+            background-color: rgba(233, 228, 228, 0.944);
+            
+    
+            display: flex;
+            justify-content: right;
+
+        }
+
+        
+
+        .menu ul{
+
+            list-style: none;
+            overflow: hidden;
+           
+        
+        }
+
+        .menu ul li{
+            float:left;
+            padding: 15px;
+            
+            
+
+        }
+
+        .menu ul li a{
+            text-decoration: none;
+            color: rgb(147, 146, 146);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 0px;
+
+
+        }
+
+        .menu ul li a:hover{
+           
+            color: rgb(236, 110, 110);
+            
+        }
+
+
+        .aside{
+            width: 25%;
+            float: left;
+            padding: 15px;
+        }
+
+        .aside p{
+            text-align: left;
+        }
+
+        .section{
+            width: 50%;
+            float: left;
+            padding: 15px;
+        }
+
+        .section p{
+            text-align: justify;
+        }
+
+        .article{
+            width: 25%;
+            float: left;
+            padding: 15px;
+        }
+
+        .article p{
+            text-align: justify;
+        }
+
+
+
+        @media screen and (max-width: 600px) {
+            .aside, .section, .article {
+                width: 100%;
+                float: none;
+            }
+        }
+
+        @media screen and (min-width: 780px) {
+            .aside, .section, .article {
+                width: 33.33%;
+                float: left;
+            }
+        }
+    
+        main{
+            text-align: left;
+            margin-top: 50px;
+            
+        }
+
+        main h1{
+            font-size: 3em;
+            color: rgb(85, 83, 83);
+            margin-bottom: 10px;
+        }
+       #countlabel{
+        display: block;
+        font-size: 5em;
+        text-align: center;
+       }
+
+        
+
+        
+
+        .button{
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .button button {
+            padding: 10px 15px;
+            background-color: #5cb85c;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            
+            
+        }
+
+        button:hover {
+            background-color: #a5cda5;
+            transition: background-color 0.3s ease;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="menu">
+       <ul>
+           <li><a href="home.html">Home</a></li>
+           <li><a href="about.html">About</a></li>
+           <li><a href="contact.html">Contact</a></li>
+           <li><a href="first_practice.html">Login</a></li>
+       </ul>
+    </nav>
+
+
+    <main>
+        <h1 id="myh1"> The counter</h1>
+
+        <label id="countlabel">0</label>
+       <div  class="button">
+          <button id="decreaseBtn">Decrease</button>
+          <button id="resetBtn">Reset</button>
+          <button id="increaseBtn">Increase</button>
+       </div>
+
+    </main>
+
+
+    <script >
+        const decreaseBtn = document.getElementById("decreaseBtn");
+        const resetBtn = document.getElementById("resetBtn");
+        const increaseBtn = document.getElementById("increaseBtn");
+        const countLabel = document.getElementById("countlabel");
+
+
+
+        let count = 0;
+
+           increaseBtn.onclick = function() {
+                count++;
+               countLabel.innerText = count;
+
+            }
+
+
+          decreaseBtn.onclick = function() {
+               count--;
+              countLabel.innerText = count;
+
+
+            }
+
+           resetBtn.onclick = function() {
+
+              count = 0;
+              countLabel.textContent = count
+
+            }
+    </script>
+</body>
+
+</html>
