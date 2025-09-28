@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic light using if statements in js</title>
+
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            background-color: #f8f4f4;
+        }
+        h1{
+            color:rgb(166, 144, 232);
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+        .TrafficLight{
+            margin: auto;
+            padding:15px;
+            background-color: grey;
+            display: block;
+            height: 400px;
+            width: 150px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px black;
+            text-align: center;
+            /*flex-direction: column;*/
+        }
+
+        #red, #yellow, #green{
+            margin: 20px auto;
+            height: 80px;
+            width: 80px;
+            border-radius: 50%;
+            background-color: black;
+        }
+
+        .controll{
+            background-color: rgb(236, 207, 168);
+            
+            margin: 20px  70px;
+            padding: 15px;
+            width: 200px;
+            height: 100px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px black;
+        }
+
+        #timerDisplay{
+            border-radius: 10px;
+            padding: 3px;
+            background-color: rgb(235, 34, 34);
+            width: 50px;
+            text-align: center;
+            margin: 5px auto;
+            color: white;
+
+        }
+
+        .controll button{
+            margin: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            background-color: rgb(87, 81, 81);
+            color: white;
+            font-weight: bold;
+            box-shadow: 2px 2px 5px black;
+            cursor: pointer;
+        }
+            
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Traffic Light Simulation</h1>
+
+        <div class="TrafficLight">
+            <div id="red"></div>
+            <div id="yellow"></div>
+            <div id="green"></div>
+        </div>
+
+        <div class="controll">
+            <h2 id="timerDisplay">0</h2>
+            <div id ='buttons'>
+            <button id="startButton">Start</button>
+            <button id="stopButton">Stop</button>
+            </div>
+        </div>
+
+    </main>
+
+
+
+    <script>
+        // get the elements
+        let redLight = document.getElementById("red");
+        let yellowLight = document.getElementById("yellow");
+        let greenLight = document.getElementById("green");
+        let timerDisplay = document.getElementById("timerDisplay");
+        let startButton = document.getElementById("startButton");
+        let stopButton = document.getElementById("stopButton");
+
+        //if statements
+        /* timer will be 30 seconds for red light
+           timer will be 5 seconds for yellow light
+           timer will be 30 seconds for green light
+        */ 
+
+        let timer;
+        let timeLeft = 0;
+
+
+        startButton.onclick = function() {
+            timeLeft = 30; //turn on red and delay 30 seconds
+            redLight.style.backgroundColor = "red";
+            yellowLight.style.backgroundColor = "black";
+            greenLight.style.backgroundColor = "black";
+            timerDisplay.innerHTML = timeLeft;  
+            
+            //display a decrementing time from 30 second counting down to zero
+
+            timer = setInterval(function() {
+                timeLeft--;
+                timerDisplay.innerHTML = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    redLight.style.backgroundColor = "black";
+                    yellowLight.style.backgroundColor = "yellow";
+                    timeLeft = 5;
+                    timerDisplay.innerHTML = timeLeft;
+
+                    timer = setInterval(function() {
+                        timeLeft--;
+                        timerDisplay.innerHTML = timeLeft;
+
+                        if (timeLeft <= 0) {
+                            clearInterval(timer);
+                            yellowLight.style.backgroundColor = "black";
+                            greenLight.style.backgroundColor = "lightgreen";
+                            timeLeft = 30;
+                            timerDisplay.innerHTML = timeLeft;
+
+                            timer = setInterval(function() {
+                                timeLeft--;
+                                timerDisplay.innerHTML = timeLeft;
+
+                                if (timeLeft <= 0) {
+                                    clearInterval(timer);
+                                    greenLight.style.backgroundColor = "black";
+                                    startButton.disabled = false;
+                                }
+                            }, 1000);
+                        }
+                    }, 1000);
+                }
+            }, 1000);
+            
+        }
+        stopButton.onclick = function() {
+            clearInterval(timer);
+            redLight.style.backgroundColor = "black";
+            yellowLight.style.backgroundColor = "black";
+            greenLight.style.backgroundColor = "black";
+            timerDisplay.innerHTML = "0";
+            startButton.disabled = false;
+        }
+
+
+    </script>
+
+
+</body>
+</html>
