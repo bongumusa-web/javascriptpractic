@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traffic Light with Switch</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      background: #f8f4f4;
+    }
+    .TrafficLight {
+      margin: 20px auto;
+      padding: 15px;
+      background: grey;
+      height: 400px;
+      width: 150px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    #red, #yellow, #green {
+      margin: 20px auto;
+      height: 80px;
+      width: 80px;
+      border-radius: 50%;
+      background: black;
+    }
+    .controll {
+      background: #ecd0a8;
+      margin: 20px auto;
+      padding: 15px;
+      text-align: center;
+      border-radius: 10px;
+    }
+    #timerDisplay {
+      margin: 5px auto;
+      width: 50px;
+      background: red;
+      color: white;
+      border-radius: 10px;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Traffic Light (Switch Version)</h1>
+
+    <div class="TrafficLight">
+      <div id="red"></div>
+      <div id="yellow"></div>
+      <div id="green"></div>
+    </div>
+
+    <div class="controll">
+      <h2 id="timerDisplay">0</h2>
+      <button id="startButton">Start</button>
+      <button id="stopButton">Stop</button>
+    </div>
+  </main>
+
+  <script>
+    // grab elements
+    let redLight = document.getElementById("red");
+    let yellowLight = document.getElementById("yellow");
+    let greenLight = document.getElementById("green");
+    let timerDisplay = document.getElementById("timerDisplay");
+    let startButton = document.getElementById("startButton");
+    let stopButton = document.getElementById("stopButton");
+
+    let timer;
+    let timeLeft = 0;
+    let currentLight = "red"; // start with red
+
+    function setLights(red, yellow, green) {
+      redLight.style.background = red;
+      yellowLight.style.background = yellow;
+      greenLight.style.background = green;
+    }
+
+    function startCycle() {
+      switch (currentLight) {
+        case "red":
+          timeLeft = 30;
+          setLights("red", "black", "black");
+          break;
+        case "yellow":
+          timeLeft = 5;
+          setLights("black", "yellow", "black");
+          break;
+        case "green":
+          timeLeft = 30;
+          setLights("black", "black", "lightgreen");
+          break;
+      }
+      timerDisplay.innerHTML = timeLeft;
+
+      timer = setInterval(() => {
+        timeLeft--;
+        timerDisplay.innerHTML = timeLeft;
+
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+
+          // move to next light
+          switch (currentLight) {
+            case "red":
+              currentLight = "yellow";
+              break;
+            case "yellow":
+              currentLight = "green";
+              break;
+            case "green":
+              currentLight = "red";
+              break;
+          }
+
+          // start next cycle
+          startCycle();
+        }
+      }, 1000);
+    }
+
+    startButton.onclick = () => {
+      startButton.disabled = true;
+      currentLight = "red";
+      startCycle();
+    };
+
+    stopButton.onclick = () => {
+      clearInterval(timer);
+      setLights("black", "black", "black");
+      timerDisplay.innerHTML = "0";
+      startButton.disabled = false;
+    };
+  </script>
+</body>
+</html>
