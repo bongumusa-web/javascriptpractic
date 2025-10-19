@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>calculator</title>
+   <style>
+      body{
+         margin: 0;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         height: 100vh;
+         background-color: rgb(233, 228, 222);
+      }
+
+      #calculator{
+         font-family: Verdana, Geneva, Tahoma, sans-serif;
+         background-color: black;
+         border-radius: 15px;
+         max-width: 375px;
+         overflow: hidden;
+         padding: 20px;
+      }
+
+      #display{
+         width: 100%;
+         height: 80px;
+         background-color: rgb(233, 228, 222);
+         border: none;
+         border-radius: 10px;
+         font-size: 2.5rem;
+         color: rgb(25, 24, 24);
+         text-align: right;
+         padding: 10px;
+         box-sizing: border-box;
+         margin-bottom: 20px;
+      }
+      #keys{
+         display: grid;
+         grid-template-columns: repeat(4,1fr);
+         gap:10px;
+         padding: 25px;
+      }
+
+      button{
+         width:75px;
+         height:75px;
+         border-radius: 50px;
+         border: none;
+         background-color: rgb(124, 116, 106);
+         color: white;
+         font-size: 2rem;
+         font-weight: bold;
+         cursor: pointer;
+
+      }
+
+      button:hover{
+         background-color: hsl(0, 0%, 80%);
+      }
+
+      button:active{
+         transform: scale(0.95);
+      }
+      #operator{
+         background-color: rgb(228, 147, 49);
+      }
+
+      #result{
+         grid-column: repeat(4, auto);
+         background-color: rgb(112, 201, 217);
+      }
+
+   </style>
+</head>
+<body>
+
+   <!--////////////////////////////////////main//////////////////////////////////////////-->
+    <div id="calculator">
+      <input type="text" id="display" readonly>
+      <div id="keys">
+         <button onclick="appendTodisplay('+')" id="operator">+</button>
+         <button onclick="appendTodisplay('7')">7</button>
+         <button onclick="appendTodisplay('8')">8</button>
+         <button onclick="appendTodisplay('9')">9</button>
+          <button onclick="appendTodisplay('-')" id="operator">-</button>
+
+         <button onclick="appendTodisplay('4')">4</button>
+         <button onclick="appendTodisplay('5')">5</button>
+         <button onclick="appendTodisplay('6')">6</button>
+         <button onclick="appendTodisplay('*')" id="operator">*</button>
+
+
+         <button onclick="appendTodisplay('1')">1</button>
+         <button onclick="appendTodisplay('2')">2</button>
+         <button onclick="appendTodisplay('3')">3</button>
+        <button onclick="appendTodisplay('/')" id="operator">/</button>
+
+         <button onclick="appendTodisplay('0')">0</button>
+        
+         <button onclick="appendTodisplay('(')">(</button>
+         <button onclick="appendTodisplay(')')">)</button>
+
+         
+          <button onclick="appendTodisplay('.')">.</button>
+         <button onclick="deleteLastChar()">DEL</button>
+         <button onclick="clearDisplay()">C</button>
+         <button id ="result"onclick="calculateResult()">=</button>
+
+      </div>
+    </div>
+
+
+<!---/////////////////////////////////////javascript//////////////////////-->
+   <script>
+      //es module
+
+      const display = document.getElementById('display');
+      function appendTodisplay(value){
+         display.value += value;
+      }
+
+      function deleteLastChar(){
+         display.value = display.value.slice(0, -1);
+      }
+
+      function clearDisplay(){
+         display.value = '';
+      }
+
+      function calculateResult(){
+         try {
+            display.value = eval(display.value);
+         } catch (error) {
+            display.value = 'Error';
+         }
+      }
+
+
+   </script>
+   
+</body>
+</html>
