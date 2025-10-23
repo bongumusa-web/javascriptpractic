@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Changer</title>
+
+  <style>
+    body {
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+
+    input, select, button {
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 4px;
+    }
+
+    input {
+      border: 0.5px solid #ccc;
+    }
+
+    select {
+      border: 0.5px solid #ccc;
+    }
+
+    button {
+      border: none;
+      background-color: #9de1ad;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Color Changer</h1>
+
+  <label for="colorInput">Type color name or hex code:</label>
+  <input type="text" id="colorInput" placeholder="e.g., red or #ff0000">
+
+  <button onclick="updateColor()">Update Color</button>
+  <p id="colorValue"></p>
+
+  <script>
+    const colorInput = document.getElementById("colorInput");
+    const colorValue = document.getElementById("colorValue");
+
+    function isValidColor(color) {
+      const s = new Option().style;
+      s.color = color;
+      return s.color !== '';
+    }
+
+    function updateColor() {
+      const color = colorInput.value.trim();
+
+      if (!color) {
+        colorValue.textContent = "⚠️ Please enter a color value.";
+        colorValue.style.color = "red";
+        return;
+      }
+
+      if (isValidColor(color)) {
+        document.body.style.backgroundColor = color;
+        colorValue.textContent = `✅ Background color changed to: ${color}`;
+        colorValue.style.color = 'white';
+        if(color.toLowerCase() === 'white' || color === '#ffffff' || color === '#fff') {
+          colorValue.style.color = 'black';
+        }
+      } else {
+        colorValue.textContent = "❌ Invalid color. Please enter a valid color name or hex code (e.g., 'blue' or '#00ff00').";
+        colorValue.style.color = "red";
+      }
+    }
+  </script>
+
+</body>
+
+</html>
