@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>additing table </title>
+  <style>
+
+    .container{
+      display: flex;
+      flex-direction: row;
+    }
+    #inputData{
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      margin: 20px 20px;
+      padding: 20px;
+      width: 40%;
+      
+
+    }
+    #inputData label {
+      margin: 15px 8px;
+
+    }
+
+    #inputData input{
+      margin-bottom: 8px; 
+      border: none;
+      border-bottom: 2px solid grey;
+
+
+
+
+
+    }
+
+    #inputData select{
+      margin-bottom: 8px; 
+      border: none;
+      border-bottom: 2px solid grey;
+
+
+    }
+    
+    #inputData button {
+    grid-column: 2 / 3; /* place in the second column */
+    justify-self: end;  /* align to the right */
+    padding: 8px 16px;
+    margin-top: 5px;
+    background-color: greenyellow;
+    color: black;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 600;
+    border: none;
+    border-radius: 15px;
+    width: 120px;
+    height: 35px;
+    margin: auto;
+  }
+
+  #inputData button:hover{
+    transition: 1s;
+    border-bottom: 4px solid red;
+    height: 42px;
+   
+
+  }
+
+
+
+  /* table style */
+
+  #table{
+    width: 60%;
+    margin: 20px;
+  }
+  #table1{
+    width: 97%;
+    background-color:white;
+    
+  }
+
+#table1 {
+  border-collapse: collapse;  /* merge borders */
+ width: 100%;                /* full width */
+  font-family: Arial, sans-serif;
+}
+
+#table1 th, #table1 {
+  border: 2px solid #40433f;     /* light grey border all around */
+  padding: 10px 15px;         /* spacing inside cells */
+  text-align: left;
+}
+
+#table1 td {
+  border: 1px solid #ddd;     /* light grey border all around */
+  padding: 10px 15px;         /* spacing inside cells */
+  text-align: left;
+}
+
+
+#table1 th {
+  background-color: #f4f4f4;  /* subtle header background */
+  color: #333;                /* header text color */
+}
+
+#table1 tr:nth-child(even) {
+  background-color: #fafafa;  /* striped rows for readability */
+}
+
+#table1 tr:hover {
+  background-color: #f1f1f1;  /* hover effect */
+}
+
+#searchContainer {
+  display: flex;
+  align-items: center; /* vertically center the input and button */
+  margin-bottom: 20px;
+}
+
+#search {
+   /* take all available space */
+  height: 35px;
+  border: none;
+  border-bottom: 2px solid grey;
+  background-color: #ddd;
+  border-radius: 20px 0 0 20px; /* rounded left corners */
+  padding: 0 10px;
+  outline: none;
+  width: 300px;
+  
+}
+
+#searchBtn {
+  height: 37.1px;
+  width: 60px;
+  border: none;
+  border-bottom: 2px solid grey;
+  border-left: none; /* avoid double border between input and button */
+  border-radius: 0 20px 20px 0; /* rounded right corners */
+  background-color:#ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#searchBtn img {
+  width: 20px;
+  height: 20px;
+}
+
+
+
+
+
+
+
+  
+
+
+ @media screen and (max-width: 600px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  #inputData{
+    width: 85%;
+    margin-left: 0;
+  }
+
+  #table{
+    width: 95%;
+  }
+}
+
+
+
+
+  </style>
+</head>
+<body>
+
+  <!--main body -->
+  <div class ='container'>
+    <div id="inputData">
+      <label for="name"> Name</label>
+      <input type="text" required id="name" placeholder="Enter your name...">
+
+      <label for="surname">Surname</label>
+      <input type="text" id="surname" placeholder="Enter your surname" required>
+
+
+      <label for="age">Age</label>
+      <input type="number" id="age" placeholder="Enter your age.." required>
+
+      <label for="gender">Gender</label>
+       <select id="gender" name="gender" required>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+       </select>
+
+
+       <button   onclick ='addData()'> ADD</button>
+
+
+
+    </div>
+
+
+
+  
+  <div id="table">
+
+    
+    <div id="searchContainer">
+        <input type="text" id="search" placeholder="Search by Name">
+        <button id="searchBtn" onclick="searchData()"  ><img src="search.png" alt="search icon"></button>
+      </div>
+
+
+
+   <table id="table1"border ='1px'>
+  <tr id="tableRow1" >
+    <th>Name</th>
+    <th>Surname</th>
+    <th>Age</th>
+    <th>Gender</th>
+    <th>Action</th>
+  </tr>
+  
+
+  
+</table>
+
+  </div>
+  </div>
+
+
+
+
+  <!--js-->
+
+  <script>
+
+    const Name = document.getElementById('name');
+    const Surname = document.getElementById('surname');
+    const Age = document.getElementById('age')
+    const Gender = document.getElementById("gender")
+    const tabledata = document .getElementById('tableRw2');
+    const table1 =document.getElementById('table1');
+    const search = document.getElementById('search');
+   
+    let selectedRow = null; // track row being edited
+
+function addData() {
+    const nameValue = Name.value.trim();
+    const surnameValue = Surname.value.trim();
+    const ageValue = Age.value.trim();
+    const genderValue = Gender.value;
+
+    if (!nameValue || !surnameValue || !ageValue) return; // simple validation
+
+    let tableData = JSON.parse(localStorage.getItem('tableData')) || [];
+
+    if (selectedRow) {
+        // update existing row
+        const rows = Array.from(table1.querySelectorAll('tr:not(:first-child)'));
+        const index = rows.indexOf(selectedRow);
+
+        tableData[index] = {
+            name: nameValue,
+            surname: surnameValue,
+            age: ageValue,
+            gender: genderValue
+        };
+
+        selectedRow = null; // reset selection after update
+    } else {
+        // add new row
+        tableData.push({
+            name: nameValue,
+            surname: surnameValue,
+            age: ageValue,
+            gender: genderValue
+        });
+    }
+
+    // save to localStorage and re-render table
+    localStorage.setItem('tableData', JSON.stringify(tableData));
+    renderTable();
+
+    // clear inputs
+    Name.value = "";
+    Surname.value = "";
+    Age.value = "";
+    Gender.value = "female";
+}
+
+// render table with delete & update buttons
+function renderTable() {
+    table1.querySelectorAll('tr:not(:first-child)').forEach(tr => tr.remove());
+
+    let tableData = JSON.parse(localStorage.getItem('tableData')) || [];
+
+    tableData.forEach((data, index) => {
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td>${data.name}</td>
+            <td>${data.surname}</td>
+            <td>${data.age}</td>
+            <td>${data.gender}</td>
+            <td>
+                <button class="deleteBtn">Delete</button>
+                <button class="updateBtn">Update</button>
+            </td>
+        `;
+        table1.appendChild(newRow);
+
+        newRow.querySelector('.deleteBtn').addEventListener('click', () => {
+            tableData.splice(index, 1);
+            localStorage.setItem('tableData', JSON.stringify(tableData));
+            renderTable();
+        });
+
+        newRow.querySelector('.updateBtn').addEventListener('click', () => {
+            Name.value = data.name;
+            Surname.value = data.surname;
+            Age.value = data.age;
+            Gender.value = data.gender;
+            selectedRow = newRow; // mark this row as being edited
+        });
+    });
+}
+
+// search by name or surname
+function searchData() {
+    const searchValue = search.value.toLowerCase();
+    const rows = Array.from(table1.querySelectorAll('tr:not(:first-child)'));
+    let found = false;
+
+    rows.forEach(row => {
+        const nameCell = row.cells[0].innerText.toLowerCase();
+        const surnameCell = row.cells[1].innerText.toLowerCase();
+
+        if ((nameCell.includes(searchValue) || surnameCell.includes(searchValue)) && searchValue !== "") {
+            row.style.backgroundColor = "#add8e6"; // light blue highlight
+            if (!found) {
+                Name.value = row.cells[0].innerText;
+                Surname.value = row.cells[1].innerText;
+                Age.value = row.cells[2].innerText;
+                Gender.value = row.cells[3].innerText;
+                selectedRow = row;
+                found = true;
+            }
+        } else {
+            row.style.backgroundColor = ""; // remove highlight
+        }
+    });
+
+    if (!found) {
+        Name.value = "";
+        Surname.value = "";
+        Age.value = "";
+        Gender.value = "";
+        selectedRow = null;
+    }
+}
+
+// populate table on page load
+window.onload = renderTable;
+
+
+
+
+
+
+
+  </script>
+  
+</body>
+</html>
+
